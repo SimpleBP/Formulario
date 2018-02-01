@@ -4,19 +4,17 @@ $(document).ready( function () {
 	
 
 
-$(guardar).on('click', function (e) {
-	e.preventDefault();
+	$(guardar).on('click', function (e) {
+		e.preventDefault();
 
-	var nombre = $("#nombre").val();
-	var correo = $("#correo").val();
-	var u1 = new Usuario(nombre, correo);
-	console.log('asd');
-    u1.mostrarDatos();
-    
-	$("#nombre").attr("placeholder", "Nombre");
-    $("#correo").attr("placeholder", "Correo");
-    console.log('sii');
-});
+		var nombre = $("#nombre").val();
+		var correo = $("#correo").val();
+		var u1 = new Usuario(nombre, correo);
+	    u1.mostrarDatos();
+	    
+	    $("#nombre").val('');
+	    $("#correo").val('');
+	});
 
 
     /*------Objeto usuario------*/
@@ -24,7 +22,6 @@ $(guardar).on('click', function (e) {
 	    	this.n= nombre;
 	    	this.c=correo;
 	    	this.mostrarDatos= mostrar;
-	    	
 	    	contador++;
 	}
 
@@ -35,74 +32,52 @@ $(guardar).on('click', function (e) {
 		    var fila= $((document).createElement('tr'));
 		    fila.attr('id', 'fila'+contador);
 
-		    var cNombre = $((document).createElement('td'));
-		    var textoN = $((document).createTextNode(this.n));
-		    cNombre.append(textoN);
+		    var cNombre ='<td>'+this.n+'</td>';
 		    fila.append(cNombre);
 
-		    var cCorreo = $((document).createElement('td'));
-		    var textoC = $((document).createTextNode(this.c));
-		    cCorreo.append(textoC);
+		    var cCorreo = '<td>'+this.c+'</td>';
 		    fila.append(cCorreo);
 
-		    var botonEditar = $((document).createElement('button'));
+		     // var botonEditar= '<button>EDITAR</button>';
+       //       fila.append(botonEditar);
+			// var botonEliminar = '<button>ELIMINAR</button>';
+		 //    fila.append(botonEliminar);
+
+		     var botonEditar = $((document).createElement('button'));
 		    botonEditar.attr('id','botones');
 		    var textoEditar = $((document).createTextNode('EDITAR'));
 		    botonEditar.append(textoEditar);
 		    fila.append(botonEditar);
 
-		    var botonEliminar = $((document).createElement('button'));
-		    botonEliminar.attr('id','botones');
-            var textoEliminar = $((document).createTextNode('ELIMINAR'));
-		    botonEliminar.append(textoEliminar);
-		    fila.append(botonEliminar);
-
-		    
-
-
+		     var botonEliminar = $((document).createElement('button'));
+		     botonEliminar.attr('id','botones');
+             var textoEliminar = $((document).createTextNode('ELIMINAR'));
+		     botonEliminar.append(textoEliminar);
+		     fila.append(botonEliminar);
 
 		    $('tbody').append(fila);
 
-			$("#nombre").attr("placeholder", "Nombre");
-		    $("#correo").attr("placeholder", "Correo");
+		    
+		    var us = this;
 
 		    $(botonEliminar).on('click', function (e){
-		    	var mensaje = confirm('¿Esta seguro de eliminar al usuario '+this.n +'?');
-		    	if(true){
+		    	console.log('acas ');
+		    	var mensaje = confirm('¿Esta seguro de eliminar al usuario '+us.n +'?');
+		    	if(mensaje){
 		    		fila.remove();
-		    		window.alert('El usuario '+this.n + ' ha sido eliminado');
-		    		$("#nombre").val(this.n);
-		    		$("#correo").val(this.c);
-		    		
+		    		window.alert('El usuario '+us.n + ' ha sido eliminado');
 		    	}else{
                     window.alert('El usuario no ha sido eliminado');
 		    	}
 		    });
 
-
-
-
 		    $(botonEditar).on('click', function (e){
+		    	$("#nombre").val(us.n);
+		    	console.log('acaca');
+		    	$("#correo").val(us.c);
 		    	fila.remove();
-		    	$("#nombre").val(this.n);
-		    	$("#correo").val(this.c);
 		    });
 		}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 });
 
 
